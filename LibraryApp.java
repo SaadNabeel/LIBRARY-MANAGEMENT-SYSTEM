@@ -171,6 +171,28 @@ private static void returnBookFlow(Library library) {
     System.out.println("Return processed.");
 
 }
+private static void searchBooksFlow(Library library) {
+
+    System.out.println("\n--- Search Books ---");
+
+    String q = prompt("Search text (title/author/ISBN)");
+
+    List<Book> results = library.searchBooks(q);
+
+    if (results.isEmpty()) {
+
+        System.out.println("No matches.");
+        return;
+
+    }
+
+    results.forEach(b ->
+        System.out.printf("ID=%d | \"%s\" by %s | ISBN=%s | Available=%d/%d%n",
+            b.getId(), b.getTitle(), b.getAuthor(), b.getIsbn(),
+            b.getCopiesAvailable(), b.getCopiesTotal())
+    );
+
+}
 
 
 
