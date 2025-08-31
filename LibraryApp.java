@@ -194,6 +194,30 @@ private static void searchBooksFlow(Library library) {
 
 }
 
+private static void listActiveLoansFlow(Library library) {
+
+    System.out.println("\n--- Active Loans ---");
+
+    List<Loan> loans = library.listActiveLoans();
+
+    if (loans.isEmpty()) {
+        System.out.println("No active loans.");
+        return;
+    }
+
+    loans.forEach(l -> {
+        Book b = library.getBook(l.getBookId()).orElse(null);
+        Member m = library.getMember(l.getMemberId()).orElse(null);
+
+        String title = b != null ? b.getTitle() : "(book missing)";
+        String name = m != null ? m.getName() : "(member missing)";
+
+        System.out.printf("LoanID=%s | \"%s\" -> %s | Loaned=%s | Due=%s%n",
+                l.getLoanKey(), title, name,
+                l.getLoanDate().format(DF),
+                l.getDueDate().format(DF));
+    });
+}
 
 
 
