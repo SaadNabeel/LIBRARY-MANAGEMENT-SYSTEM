@@ -243,6 +243,30 @@ private static void listOverdueFlow(Library library) {
                 l.getDueDate().format(DF), overdueDays);
     });
 }
+private static void printlnHeader() {
+    System.out.println("================================================");
+    System.out.println("             Library Management System          ");
+    System.out.println("================================================\n");
+}
+
+private static void printMenu() {
+    System.out.println("\nMain Menu");
+    System.out.println("1) Add book");
+    System.out.println("2) List books");
+    System.out.println("3) Register member");
+    System.out.println("4) List members");
+    System.out.println("5) Borrow book");
+    System.out.println("6) Return book");
+    System.out.println("7) Search books");
+    System.out.println("8) View active loans");
+    System.out.println("9) View overdue loans");
+    System.out.println("0) Save & Exit");
+}
+
+private static String prompt(String label) {
+    System.out.print(label + ": ");
+    return IN.nextLine();
+}
 
 
 
