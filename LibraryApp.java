@@ -218,6 +218,31 @@ private static void listActiveLoansFlow(Library library) {
                 l.getDueDate().format(DF));
     });
 }
+private static void listOverdueFlow(Library library) {
+
+    System.out.println("\n--- Overdue Loans ---");
+
+    List<Loan> loans = library.listOverdueLoans();
+
+    if (loans.isEmpty()) {
+        System.out.println("No overdue loans.");
+        return;
+    }
+
+    loans.forEach(l -> {
+        Book b = library.getBook(l.getBookId()).orElse(null);
+        Member m = library.getMember(l.getMemberId()).orElse(null);
+
+        String title = b != null ? b.getTitle() : "(book missing)";
+        String name = m != null ? m.getName() : "(member missing)";
+
+        long overdueDays = l.overdueDays();
+
+        System.out.printf("LoanID=%s | \"%s\" -> %s | Due=%s | Overdue by %d day(s)%n",
+                l.getLoanKey(), title, name,
+                l.getDueDate().format(DF), overdueDays);
+    });
+}
 
 
 
