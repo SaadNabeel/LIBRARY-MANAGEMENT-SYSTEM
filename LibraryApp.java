@@ -143,7 +143,34 @@ private static void listMembersFlow(Library library) {
     );
 
 }
+private static void borrowBookFlow(Library library) {
 
+    System.out.println("\n--- Borrow Book ---");
+
+    int memberId = promptInt("Member ID", 1, Integer.MAX_VALUE);
+
+    int bookId = promptInt("Book ID", 1, Integer.MAX_VALUE);
+
+    int termDays = promptInt("Loan term in days (e.g., 14)", 1, 365);
+
+    Loan loan = library.borrowBook(memberId, bookId, termDays);
+
+    System.out.printf("Loan created. Due on %s. LoanID=%s%n", loan.getDueDate().format(DF),
+            loan.getLoanKey());
+
+}
+
+private static void returnBookFlow(Library library) {
+
+    System.out.println("\n--- Return Book ---");
+
+    String loanKey = prompt("Enter Loan ID (shown at borrow time; format M<memberId>-B<bookId>-<yyyyMMdd>)");
+
+    library.returnBook(loanKey);
+
+    System.out.println("Return processed.");
+
+}
 
 
 
